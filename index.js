@@ -121,19 +121,24 @@ Squ.prototype.constructor = Squ;
 
 
 
-function Tri(mode, x1, y1, x2, y2, x3, y3, color, fillC, outlineW, canvas)
+function Tri(mode, x1, y1, x2, y2, color, fillC, outlineW, canvas)
 {
     shape.call(this, mode, x1, y1);
     this.x2 = x2;
     this.y2 = y2;
-    this.x3 = x3;
-    this.y3 = y3;
     this.color = color;
     this.fill = fillC;
     this.width = outlineW;
     this.context = canvas.getContext("2d");
     
     
+	this.find_vertice = function () {
+		this.x3 = (this.x2 - this.x1) / 2;
+		
+	}
+	
+	
+	
     this.draw = function () {
         this.context.beginPath();
         this.context.strokeStyle = this.color;
