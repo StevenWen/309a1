@@ -1,6 +1,5 @@
 
 
-
 function shape(mode, x, y) {
     this.mode = mode;
     this.x1 = x;
@@ -130,12 +129,13 @@ function Tri(mode, x1, y1, x2, y2, color, fillC, outlineW, canvas)
     this.fill = fillC;
     this.width = outlineW;
     this.context = canvas.getContext("2d");
+    this.x3 = this.x1 + (this.x2 - this.x1) / 2;
+	this.y3 = this.y1 + Math.sqrt(1 - pow((this.x2 - this.x1) / 2, 2))
     
-    
-	this.find_vertice = function () {
-		this.x3 = (this.x2 - this.x1) / 2;
+	
+	
 		
-	}
+	
 	
 	
 	
