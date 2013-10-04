@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Drawing Tool</title>
+
+<style>
+	body {
+	  font-family: Verdana;
+	  font-size: small;
+	}
+	canvas {
+	  cursor: pointer;
+	  border: 1px solid black;
+	}
+
+</style>
+  <script src="index.js"></script>
+</head>	
+
+<body>
+
+  <canvas id="myCanvas" width="640" height="360">
+  </canvas>
+  
+ <div>
+	<button onclick="setAction('select')">Select</button>
+    <button onclick="setMode('Line')">Line</button>
+    <button onclick="setMode('Squ')">Square</button>
+	<button onclick="setMode('Tri')">Triangle</button>
+	<button onclick="clearerase()">Clear All</button>
+ </div>
+ 
+
+</body>
+</html>

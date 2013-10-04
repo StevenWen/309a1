@@ -1,0 +1,32 @@
+article, shape_menu, edit_menu, del_menu, color_menu, outline_menu, color_pad {
+	display: block;
+	}
+	
+body {
+	font-size: medium;
+	font-family: "Times New Roman";
+	margin: 0px;
+	}
+	
+#shape_menu{
+	position: relative;
+   left:50%;	
+   margin-left: -460px;
+   top:-450px;
+	}
+	
+.menu_item{
+	font-size:17px;
+   background-color: lime;
+   width: 90px;
+   height: 5px;
+   text-align: center;
+   line-height: 40px;
+   height: 40px;
+   float: left;
+   font: 13px;
+   margin-right: 25px;
+   margin-top: 7px;
+   opacity: 0.8;
+   font-size: medium;;
+	}
