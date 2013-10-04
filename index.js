@@ -4,14 +4,14 @@ function shape(mode, x, y) {
     this.mode = mode;
     this.x1 = x;
     this.y1 = y;
-    this.sx = 0;
-    this.sy = 0;
+    this.mx = 0;
+    this.my = 0;
 }
 shape.prototype.selected = false;
 shape.prototype.setSelected = function(x, y) { 
     this.selected = true;
-    this.sx = x;
-    this.sy = y;
+    this.mx = x;
+    this.my = y;
 }
 shape.prototype.setUnselected = function() { this.selected = false;}
 shape.prototype.isSelected = function() { return this.selected;}
@@ -24,6 +24,15 @@ function Line(mode, x1, y1, x2, y2, color, outlineW, canvas) {
 	this.x2 = x2;
 	this.y2 = y2;
     this.context = canvas.getContext("2d");
+
+    this.move = function (x, y) {
+        this.x1 += (x - this.mx);
+        this.y1 += (y - this.my);
+        this.x2 += (x - this.mx);
+        this.y2 += (y - this.my);
+        this.mx = x;
+        this.my = y;
+    }
 
 
     this.draw = function () {
@@ -83,6 +92,15 @@ function Squ(mode, x1, y1, x2, y2, color, fillC, outlineW, canvas)
     this.side = this.x2 - this.x1;
     
     
+    this.move = function (x, y) {
+        this.x1 += (x - this.mx);
+        this.y1 += (y - this.my);
+        this.x2 += (x - this.mx);
+        this.y2 += (y - this.my);
+        this.mx = x;
+        this.my = y;
+    }
+
     this.draw = function ()
     {
         this.context.beginPath();
@@ -246,18 +264,21 @@ function canvaDown(e) {
 		drawing = true;
 		add(x, y, x, y);
 		shapeDraw();
-	} else if (action == "select") {
+	} else if (action == "select") {        
+        sel = false;
 		for(var i=shapes.length-1; i>=0; i--) {
 			var shape = shapes[i];
             //console.log(i);
-			if (shape.testHit(x,y)) {
+            
+			if (shape.testHit(x,y) && !sel) {
                 console.log(i);
 				//if (previouslySelectedShape != null)// previouslySelectedShape.setSelected(false);
 				//previouslySelectedShape = shape;
                 shapes.splice(i, 1);
 				shape.setSelected(x, y);
-                shapes.push(shape);
-				
+                shapes.push(shape);                
+				sel = true;
+                moving = true;
 			}
             else {
                 shape.setUnselected();
@@ -273,24 +294,32 @@ function canvasRelease(e)
 {
     if (drawing) {
         drawing = false;
-        moving = false;
-        resizing = false;
 	    x2 = e.clientX - canvas.offsetLeft;
         y2 = e.clientY - canvas.offsetTop;
 	    shapes.pop();
         add(x, y, x2, y2);
 	    shapeDraw();
     }
+    else if (moving) {
+        moving = false;
+    }
 }
 
 
 function interact(e)
 {
-	if (drawing){
+
+	if (drawing) {
         shapes.pop();
         add(x, y, e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
         shapeDraw();
-		}
+	}
+    else if (moving) {
+
+        last = shapes.length - 1;
+        shapes[last].move(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+        shapeDraw();
+    }
 }
 
 
