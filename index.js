@@ -24,6 +24,7 @@ function Line(mode, x1, y1, x2, y2, color, outlineW, canvas) {
 	this.x2 = x2;
 	this.y2 = y2;
     this.context = canvas.getContext("2d");
+    this.resize = 0;
 
     this.move = function (x, y) {
         this.x1 += (x - this.mx);
@@ -35,12 +36,23 @@ function Line(mode, x1, y1, x2, y2, color, outlineW, canvas) {
     }
 
 
+    this.resizeit = function (x, y) {
+        if (this.resize == 1) {
+            this.x1 = x;
+            this.y1 = y;
+        }
+        else if (this.resize == 2) {
+            this.x2 = x;
+            this.y2 = y;
+        }
+    }
+
+
     this.draw = function () {
         this.context.beginPath();
         this.context.strokeStyle = this.color;
         this.context.moveTo(this.x1, this.y1);
         this.context.lineTo(this.x2, this.y2);
-        console.log(this.isSelected());
         if (this.isSelected())
         {
             
@@ -54,7 +66,24 @@ function Line(mode, x1, y1, x2, y2, color, outlineW, canvas) {
         this.context.closePath();
     }
     
-
+    
+    this.testHitEdge = function (testX, testY) {
+        if ((testY + 10 > this.y1 && testY - 10 < this.y1) && (testX + 10 > this.x1 && testX - 10 < this.x1)) {
+            this.resize = 1;
+            console.log("hit 1");
+            return true;
+        }
+        else if ((testY + 10 > this.y2 && testY - 10 < this.y2) && (testX + 10 > this.x2 && testX - 10 < this.x2)) {
+            this.resize = 2;
+            console.log("hit 2");
+            return true;
+        }
+        else {
+            this.resize = 0;
+            console.log("didn't hit");
+            return false;
+        }
+    }
     
     this.testHit = function (testX, testY) {
         var minX = Math.min(this.x1, this.x2);
@@ -83,13 +112,13 @@ Line.prototype.constructor = Line;
 function Squ(mode, x1, y1, x2, y2, color, fillC, outlineW, canvas)
 {
     shape.call(this, mode, x1, y1);
-    this.x2 = x2;
-    this.y2 = y2;
     this.color = color;
     this.fill = fillC;
     this.width = outlineW;
     this.context = canvas.getContext("2d");
-    this.side = this.x2 - this.x1;
+    this.side = x2 - this.x1;
+    this.x2 = this.x1 + this.side;
+    this.y2 = this.y1 + this.side;
     
     
     this.move = function (x, y) {
@@ -120,15 +149,74 @@ function Squ(mode, x1, y1, x2, y2, color, fillC, outlineW, canvas)
         this.context.stroke();
     }
     
-    
+    this.testHitEdge = function(testX, testY)
+    {
+        console.log(testX + " " + testY);
+        console.log(this.x2 + " " + this.y2);
+        if ((testY + 10 > this.y1 && testY - 10 < this.y1) && (testX + 10 > this.x1 && testX - 10 < this.x1)) {
+            this.resize = 1;
+            return true;
+        }
+        else if ((testY + 10 > this.y2 && testY - 10 < this.y2) && (testX + 10 > this.x2 && testX - 10 < this.x2)) {
+            this.resize = 2;
+            return true;
+        }
+        else if ((testY + 10 > this.y1 && testY - 10 < this.y1) && (testX + 10 > this.x2 && testX - 10 < this.x2)) {
+            this.resize = 3;
+            return true;
+        }
+        else if ((testY + 10 > this.y2 && testY - 10 < this.y2) && (testX + 10 > this.x1 && testX - 10 < this.x1)) {
+            this.resize = 4;
+            return true;
+        }
+        else {
+            this.resize = 0;
+            return false;
+        }
+    }
+
+
+    this.resizeit = function (x, y) {
+        console.log(this.resize);
+        if (this.resize == 1) {            
+            this.side = this.x2 - x;
+            this.x1 = this.x2 - this.side;
+            this.y1 = this.y2 - this.side;
+        }
+        else if (this.resize == 2) {
+            this.side = x - this.x1;
+            this.x2 = this.x1 + this.side;
+            this.y2 = this.y1 + this.side;
+        }
+        else if (this.resize == 3) {
+            this.side = x - this.x1;
+            this.x2 = this.x1 + this.side;
+            this.y1 = this.y2 - this.side;
+        }
+        else if (this.resize == 4) {
+            this.side = this.x2 - x;
+            this.x1 = this.x2 - this.side;
+            this.y2 = this.y1 + this.side;
+        }
+
+    }
+
     this.testHit = function (testX, testY)
     {
         var minX = Math.min(this.x1, this.x2);
         var maxX = Math.max(this.x1, this.x2);
         var minY = Math.min(this.y1, this.y2);
         var maxY = Math.max(this.y1, this.y2);
-        if (testX >= minX && testX <= maxX && testY >= minY && testY <= maxY) return true;
-        return false;
+        console.log("x " + minX + " "  + maxX);
+        console.log("y " + minX + " "  + maxX);
+        console.log(testX + " " + testY);
+        if (testX >= minX && testX <= maxX && testY >= minY && testY <= maxY) {
+            console.log("true");
+            return true;
+        } 
+        else {
+            return false;
+        }
     }
 }
 Squ.prototype = new shape();
@@ -249,7 +337,6 @@ function add(x1, y1, x2, y2)
     }
     newobj.setUnselected();
     shapes.push(newobj);
-    console.log("length: " + shapes.length);
 }
 
 
@@ -268,17 +355,22 @@ function canvaDown(e) {
         sel = false;
 		for(var i=shapes.length-1; i>=0; i--) {
 			var shape = shapes[i];
-            //console.log(i);
-            
+            console.log(shape.testHit(x,y));
 			if (shape.testHit(x,y) && !sel) {
-                console.log(i);
 				//if (previouslySelectedShape != null)// previouslySelectedShape.setSelected(false);
 				//previouslySelectedShape = shape;
+
                 shapes.splice(i, 1);
 				shape.setSelected(x, y);
                 shapes.push(shape);                
 				sel = true;
-                moving = true;
+                if (shape.testHitEdge(x, y)) {
+                    console.log("resizing");
+                    resizing = true;
+                }
+                else {
+                    moving = true;
+                }                
 			}
             else {
                 shape.setUnselected();
@@ -303,6 +395,9 @@ function canvasRelease(e)
     else if (moving) {
         moving = false;
     }
+    else if (resizing) {
+        resizing = false;
+    }
 }
 
 
@@ -318,6 +413,11 @@ function interact(e)
 
         last = shapes.length - 1;
         shapes[last].move(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+        shapeDraw();
+    }
+    else if (resizing) {
+        last = shapes.length - 1;
+        shapes[last].resizeit(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
         shapeDraw();
     }
 }
@@ -353,7 +453,6 @@ function shapeDraw()
     var i = 0;
     while (i < shapes.length)
     {
-        console.log("drawing " + i);
         shapes[i].draw();
         i++;
     }
