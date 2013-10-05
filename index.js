@@ -128,14 +128,11 @@ function Tri(mode, x1, y1, x2, y2, color, fillC, outlineW, canvas)
     this.color = color;
     this.fill = fillC;
     this.width = outlineW;
+	
+    this.x3 = Math.round(this.x1 + (this.x2 - this.x1) / 2);
+	this.y3 = Math.round(this.y1 * 2);
     this.context = canvas.getContext("2d");
-    this.x3 = this.x1 + (this.x2 - this.x1) / 2;
-	this.y3 = this.y1 + Math.sqrt(1 - pow((this.x2 - this.x1) / 2, 2))
-    
-	
-	
-		
-	
+
 	
 	
 	
@@ -216,19 +213,19 @@ function setAction(action_wanted) {
 }
 
 
-function add(x1, y1, x2, y2, x3, y3)
+function add(x1, y1, x2, y2)
 {
     if (mode == "Line")
     {
-        var newobj = new Line(mode, x1, y1, x3, y3, outlinecolor, outlinesize, canvas);
+        var newobj = new Line(mode, x1, y1, x2, y2, outlinecolor, outlinesize, canvas);
     }
     else if (mode == "Squ")
     {
-        var newobj = new Squ(mode, x1, y1, x3, y3, outlinecolor, fillcolor, outlinesize, canvas);
+        var newobj = new Squ(mode, x1, y1, x2, y2, outlinecolor, fillcolor, outlinesize, canvas);
     }
     else if (mode == "Tri")
     {
-        var newobj = new Tri(mode, x1, y1, x2, y2, x3, y3, outlinecolor, fillcolor, outlinesize, canvas);
+        var newobj = new Tri(mode, x1, y1, x2, y2, outlinecolor, fillcolor, outlinesize, canvas);
     }
     newobj.setUnselected();
     shapes.push(newobj);
@@ -245,7 +242,7 @@ function canvaDown(e) {
     y = e.clientY - canvas.offsetTop;
     if (action != "select") {
 		drawing = true;
-		add(x, y, x, y, x, y);
+		add(x, y, x, y);
 		shapeDraw();
 	} else if (action == "select") {
 		for(var i=shapes.length-1; i>=0; i--) {
@@ -279,7 +276,7 @@ function canvasRelease(e)
 	    x2 = e.clientX - canvas.offsetLeft;
         y2 = e.clientY - canvas.offsetTop;
 	    shapes.pop();
-        add(x, y, x, y, x2, y2);
+        add(x, y, x2, y2);
 	    shapeDraw();
     }
 }
@@ -289,7 +286,7 @@ function interact(e)
 {
 	if (drawing){
         shapes.pop();
-        add(x, y, x, y, e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+        add(x, y, e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
         shapeDraw();
 		}
 }
