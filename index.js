@@ -230,14 +230,14 @@ function Tri(mode, x1, y1, x2, y2, color, fillC, outlineW, canvas)
 {
     shape.call(this, mode, x1, y1);
     this.x2 = x2;
-    this.y2 = y2;
+    this.y2 = y1;
     this.color = color;
     this.fill = fillC;
     this.width = outlineW;
-	
-    this.x3 = Math.round(this.x1 + (this.x2 - this.x1) / 2);
-	this.y3 = Math.round(this.y1 * 2);
     this.context = canvas.getContext("2d");
+	this.side = this.x2 - this.x1;
+	this.x3 = this.x1;
+	this.y3 = this.y1 + this.side;
 
 	
 	
@@ -246,11 +246,12 @@ function Tri(mode, x1, y1, x2, y2, color, fillC, outlineW, canvas)
 	
         this.context.beginPath();
         this.context.strokeStyle = this.color;
-        this.context.moveTo(this.x1, this.y1);
+		this.context.fillStyle = this.fill;
+        this.context.globalAlpha = 0.85;
+		this.context.moveTo(this.x1, this.y1);
         this.context.lineTo(this.x2, this.y2);
         this.context.lineTo(this.x3, this.y3);
         this.context.lineTo(this.x1, this.y1);
-		this.context.fill();
         if (this.isSelected())
         {
             this.context.lineWidth = 6;
@@ -263,11 +264,71 @@ function Tri(mode, x1, y1, x2, y2, color, fillC, outlineW, canvas)
         this.context.closePath();
     }
     
+	this.resizeit = function (x, y) {
+        console.log(this.resize);
+        if (this.resize == 1) {            
+            this.increment = x - this.x1;
+        }
+        else if (this.resize == 2) {
+            this.side = x - this.x2;
+        }
+        else if (this.resize == 3) {
+            this.side = x - this.x3;
+        }
+		this.x1 += this.increment;
+        this.y1 += this.increment;
+		this.x2 += this.increment;
+		this.y2 += this.increment;
+		this.x3 += this.increment;
+		this.y3 += this.increment;
+
+    }
     
+	
+	this.move = function (x, y) {
+        this.x1 += (x - this.mx);
+        this.y1 += (y - this.my);
+        this.x2 += (x - this.mx);
+        this.y2 += (y - this.my);
+        this.x3 += (x - this.mx);
+        this.y3 += (y - this.my);
+        this.mx = x;
+        this.my = y;
+    }
+	
+	this.testHitEdge = function(testX, testY)
+    {
+        console.log(testX + " " + testY);
+        console.log(this.x2 + " " + this.y2);
+        if ((testY + 10 > this.y1 && testY - 10 < this.y1) && (testX + 10 > this.x1 && testX - 10 < this.x1)) {
+            this.resize = 1;
+            return true;
+        }
+        else if ((testY + 10 > this.y2 && testY - 10 < this.y2) && (testX + 10 > this.x2 && testX - 10 < this.x2)) {
+            this.resize = 2;
+            return true;
+        }
+        else if ((testY + 10 > this.y3 && testY - 10 < this.y3) && (testX + 10 > this.x3 && testX - 10 < this.x3)) {
+            this.resize = 3;
+            return true;
+        }
+        else {
+            this.resize = 0;
+            return false;
+        }
+    }
     
     this.testHit = function (testX, testY)
     {
-       return false
+       maxx = Math.max(this.x1, this.x2);
+	   minx = Math.min(this.x1, this.x2);
+	   maxy = Math.max(this.y1, this.y3);
+	   miny = Math.min(this.y1, this.y3);
+	   if (minx < testX < maxx && miny < testY < maxy) {
+			return true;
+	   } else {
+			return false;
+	   }
     }
 }
 Tri.prototype = new shape();
