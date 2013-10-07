@@ -324,7 +324,8 @@ function Tri(mode, x1, y1, x2, y2, color, fillC, outlineW, canvas)
 	   minx = Math.min(this.x1, this.x2);
 	   maxy = Math.max(this.y1, this.y3);
 	   miny = Math.min(this.y1, this.y3);
-	   if (minx < testX < maxx && miny < testY < maxy) {
+	   slope = (this.y2 - testY) / (this.x2 - testX);
+	   if ((minx < testX && testX < maxx) && (miny < testY && testY < maxy) && (-1 < slope && slope < 0)) {
 			return true;
 	   } else {
 			return false;
