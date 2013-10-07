@@ -137,12 +137,14 @@ function Tri(mode, x1, y1, x2, y2, color, fillC, outlineW, canvas)
 	
 	
     this.draw = function () {
+	
         this.context.beginPath();
         this.context.strokeStyle = this.color;
         this.context.moveTo(this.x1, this.y1);
         this.context.lineTo(this.x2, this.y2);
         this.context.lineTo(this.x3, this.y3);
         this.context.lineTo(this.x1, this.y1);
+		this.context.fill();
         if (this.isSelected())
         {
             this.context.lineWidth = 6;
