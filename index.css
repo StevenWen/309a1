@@ -30,3 +30,33 @@ body {
    opacity: 0.8;
    font-size: medium;;
 	}
+
+   td.lwtd
+{
+   text-align : center;
+   height : 30px;
+   width : 30px;
+   border: 1px solid black;
+   background-color: cyan;
+}
+
+td
+{
+   border: 1px solid black;
+   height : 30px;
+   width : 30px;
+}
+
+
+
+canvas
+{
+   border: 1px solid black;
+}
+
+td.black
+{
+   background-color:black; 
+
+}
+

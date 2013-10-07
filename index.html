@@ -4,21 +4,181 @@
   <meta charset="UTF-8">
   <title>Drawing Tool</title>
 
-<style>
+
+
+
+  <style>
 	body {
 	  font-family: Verdana;
 	  font-size: small;
 	}
 	canvas {
-	  cursor: pointer;
 	  border: 1px solid black;
 	}
 
-</style>
+  </style>
+  <link rel="stylesheet" type="text/css" href="index.css">
   <script src="index.js"></script>
 </head>	
 
 <body>
+  
+<div style="float:right;width:300px;height:768px">
+    <p>Outline width:</p>
+	<table>
+		<tr>
+			<td class = "lwtd">1</td>
+			<td class = "lwtd">2</td>
+			<td class = "lwtd">3</td>
+			<td class = "lwtd">4</td>
+			<td class = "lwtd">5</td>
+			<td class = "lwtd">6</td>
+			<td class = "lwtd">7</td>
+			<td class = "lwtd">8</td>
+			<td class = "lwtd">9</td>
+		</tr>
+	</table>
+	<p>Fill colour:</p>
+	<table id = "fillcolour">
+		<tr>
+			<td class = "black"></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
+	<p>Outline colour:</p>
+	<table id = "outlinecolour">
+	<table id = "fillcolour">
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
+	</table>
+</div>
 
   <canvas id="myCanvas" width="640" height="360">
   </canvas>
