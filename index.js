@@ -260,6 +260,7 @@ function Tri(mode, x1, y1, x2, y2, color, fillC, outlineW, canvas)
         {
             this.context.lineWidth = this.width;
         }
+		this.context.fill();
         this.context.stroke();
         this.context.closePath();
     }
