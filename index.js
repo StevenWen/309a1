@@ -266,21 +266,16 @@ function Tri(mode, x1, y1, x2, y2, color, fillC, outlineW, canvas)
     
 	this.resizeit = function (x, y) {
         console.log(this.resize);
-        if (this.resize == 1) {            
-            this.increment = x - this.x1;
-        }
-        else if (this.resize == 2) {
-            this.side = x - this.x2;
+		if (this.resize == 2) {
+            this.increment = x - this.x2;
+			this.x2 += this.increment;
+			this.y3 += this.increment;
         }
         else if (this.resize == 3) {
-            this.side = x - this.x3;
+            this.increment = y - this.y3;
+			this.x2 += this.increment;
+			this.y3 += this.increment;
         }
-		this.x1 += this.increment;
-        this.y1 += this.increment;
-		this.x2 += this.increment;
-		this.y2 += this.increment;
-		this.x3 += this.increment;
-		this.y3 += this.increment;
 
     }
     
@@ -300,15 +295,14 @@ function Tri(mode, x1, y1, x2, y2, color, fillC, outlineW, canvas)
     {
         console.log(testX + " " + testY);
         console.log(this.x2 + " " + this.y2);
-        if ((testY + 10 > this.y1 && testY - 10 < this.y1) && (testX + 10 > this.x1 && testX - 10 < this.x1)) {
-            this.resize = 1;
-            return true;
-        }
-        else if ((testY + 10 > this.y2 && testY - 10 < this.y2) && (testX + 10 > this.x2 && testX - 10 < this.x2)) {
+  
+        if ((testY + 10 > this.y2 && testY - 10 < this.y2) && (testX + 10 > this.x2 && testX - 10 < this.x2)) {
+		// point 2
             this.resize = 2;
             return true;
         }
         else if ((testY + 10 > this.y3 && testY - 10 < this.y3) && (testX + 10 > this.x3 && testX - 10 < this.x3)) {
+		// point 3
             this.resize = 3;
             return true;
         }
