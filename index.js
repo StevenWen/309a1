@@ -412,22 +412,18 @@ function canvaDown(e) {
         sel = false;
 		for(var i=shapes.length-1; i>=0; i--) {
 			var shape = shapes[i];
-            console.log(shape.testHit(x,y));
-			if (shape.testHit(x,y) && !sel) {
+            hit = shape.testHit(x, y);
+            edge = shape.testHitEdge(x, y);
+			if (!sel && (edge || hit)) {
 				//if (previouslySelectedShape != null)// previouslySelectedShape.setSelected(false);
 				//previouslySelectedShape = shape;
 
                 shapes.splice(i, 1);
 				shape.setSelected(x, y);
                 shapes.push(shape);                
-				sel = true;
-                if (shape.testHitEdge(x, y)) {
-                    console.log("resizing");
-                    resizing = true;
-                }
-                else {
-                    moving = true;
-                }                
+				sel = true;      
+                resizing = edge;
+                moving = !resizing;                
 			}
             else {
                 shape.setUnselected();
