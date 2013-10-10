@@ -7,6 +7,7 @@ function shape(mode, x, y) {
     this.mx = 0;
     this.my = 0;
 }
+
 shape.prototype.selected = false;
 shape.prototype.setSelected = function() { 
     this.selected = true;
@@ -17,6 +18,9 @@ shape.prototype.setMousePos = function(x, y) {
     this.mx = x;
     this.my = y;
 }
+
+
+
 shape.prototype.setUnselected = function() { this.selected = false;}
 shape.prototype.isSelected = function() { return this.selected;}
 
@@ -114,9 +118,6 @@ function Line(mode, x1, y1, x2, y2, color, outlineW) {
 Line.prototype = new shape();
 Line.prototype.constructor = Line;
 	
-	
-
-
 
 function Squ(mode, x1, y1, x2, y2, color, fillC, outlineW)
 {
@@ -372,6 +373,10 @@ var translate;
 var acopy;
 var target;
 
+/*
+* Fill the color fcolor of any selected shape
+* Future shapes will be filled with fcolor
+*/
 function setFillColor(fcolor) {
     fillcolor = fcolor;
     if (action == "select") {
@@ -380,6 +385,11 @@ function setFillColor(fcolor) {
     }
 }
 
+
+/*
+* Set the outline color lcolor of any selected shape
+* Future shapes will be outlined with color lcolor
+*/
 function setOutLineColor(lcolor) {
     outlinecolor = lcolor;
     if (action == "select") {
@@ -389,12 +399,17 @@ function setOutLineColor(lcolor) {
 }
 
 
+/*
+* Set the outline width lwidth of any selected shape
+* Future shapes will be outlined with width lwidth
+*/
 function setOutLineWidth(lwidth) {
     outlinesize = lwidth;
     if (action == "select") {
         shapes[shapes.length-1].width = lwidth;
     }
 }
+
 
 window.onload = function () {
 		mode = "Line";
@@ -410,6 +425,7 @@ window.onload = function () {
 	
 	}
 
+	
 function setMode(shape_to_draw) {
     if (shapes.length != 0) {
         shapes[shapes.length-1].setUnselected();
@@ -420,6 +436,7 @@ function setMode(shape_to_draw) {
 	mode = shape_to_draw;
 	action = "addShape";
 }
+
 
 function setAction(action_wanted) {
 	action = action_wanted;
@@ -445,10 +462,6 @@ function add(x1, y1, x2, y2)
 }
 
 
-
-
-
-	
 function canvaDown(e) {
     x = e.clientX - canvas.offsetLeft;
     y = e.clientY - canvas.offsetTop;
@@ -524,7 +537,10 @@ function interact(e)
     }
 }
 
-
+/*
+* Handler for "Clear All/ Erase" button. Clear any shape if selected
+* Clear the canvas if no shape is selected
+*/
 function clearerase()
 {
 
@@ -544,15 +560,19 @@ function clearerase()
 
 }
 
+
+/*
+* Copy the shape
+*/
 function copy()
 {
-
-
-    
     target = shapes[shapes.length-1];
 }
 
 
+/*
+* Paste the copied shape
+*/
 function paste()
 {
     if (target) {
@@ -566,6 +586,10 @@ function paste()
     
 }
 
+
+/*
+* Clear the canvas and draw all the shapes stored in array shapes.
+*/
 function shapeDraw()
 {
 	
@@ -577,4 +601,20 @@ function shapeDraw()
         shapes[i].draw();
         i++;
     }
+}
+
+
+/*
+* Function to handle click on help button
+*/
+function help(){
+	window.alert("Instructions:\n\
+	1, To select a shape, click the 'select' button, then select the shaped on canvas.\n\
+	2, To draw the desired shape, click the corresponding button first, then draw on canvas.\n\
+	3, If any shape is selected, 'Clear All/ Erase' will erase that shape, otherwise, all shapes will be removed.\n\
+	4, To move a shape, select the shape first, click the body of the shape then hold and move the mouse.\n\
+	5, To resize a shape, select the shape first, click the corner of the square, the two edges of the line, or the angles of triangle except the right angle, then drag the mouse.\n\
+	6, To change the color, outline width or outline color of an existing shape, select the shape first, click the desired color or outline width on the left side.\n\
+	7, To change the color, outline width or outline color of the future shapes, do not select any shape, choose the color on the color pad, then draw it.\n\
+	8, To copy and paste a shape, select the shape, click the 'copy' button, then click the 'paste' button to paste a new shape.\n")
 }
