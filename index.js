@@ -8,8 +8,12 @@ function shape(mode, x, y) {
     this.my = 0;
 }
 shape.prototype.selected = false;
-shape.prototype.setSelected = function(x, y) { 
+shape.prototype.setSelected = function() { 
     this.selected = true;
+    
+}
+
+shape.prototype.setMousePos = function(x, y) {
     this.mx = x;
     this.my = y;
 }
@@ -17,7 +21,7 @@ shape.prototype.setUnselected = function() { this.selected = false;}
 shape.prototype.isSelected = function() { return this.selected;}
 
 
-function Line(mode, x1, y1, x2, y2, color, outlineW, canvas) {
+function Line(mode, x1, y1, x2, y2, color, outlineW) {
     shape.call(this, mode, x1, y1);
     this.color = color;
     this.width = outlineW;
@@ -101,6 +105,11 @@ function Line(mode, x1, y1, x2, y2, color, outlineW, canvas) {
         }
         return false;
     }
+
+
+    this.clone = function () {
+        return new Line(this.mode, this.x1 + 20, this.y1 + 20, this.x2 + 20, this.y2 + 20, this.color, this.outlineW);
+    }
 }
 Line.prototype = new shape();
 Line.prototype.constructor = Line;
@@ -109,7 +118,7 @@ Line.prototype.constructor = Line;
 
 
 
-function Squ(mode, x1, y1, x2, y2, color, fillC, outlineW, canvas)
+function Squ(mode, x1, y1, x2, y2, color, fillC, outlineW)
 {
     shape.call(this, mode, x1, y1);
     this.color = color;
@@ -218,6 +227,10 @@ function Squ(mode, x1, y1, x2, y2, color, fillC, outlineW, canvas)
             return false;
         }
     }
+
+    this.clone = function () {
+        return new Squ(this.mode, this.x1 + 20, this.y1 + 20, this.x2 + 20, this.y2 + 20, this.color, this.outlineW);
+    }
 }
 Squ.prototype = new shape();
 Squ.prototype.constructor = Squ;
@@ -226,7 +239,7 @@ Squ.prototype.constructor = Squ;
 
 
 
-function Tri(mode, x1, y1, x2, y2, color, fillC, outlineW, canvas)
+function Tri(mode, x1, y1, x2, y2, color, fillC, outlineW)
 {
     shape.call(this, mode, x1, y1);
     this.x2 = x2;
@@ -326,6 +339,11 @@ function Tri(mode, x1, y1, x2, y2, color, fillC, outlineW, canvas)
 			return false;
 	   }
     }
+
+this.clone = function () {
+        return new Tri(this.mode, this.x1 + 20, this.y1 + 20, this.x2 + 20, this.y2 + 20, this.color, this.outlineW);
+    }
+
 }
 Tri.prototype = new shape();
 Tri.prototype.constructor = Tri;
@@ -352,6 +370,7 @@ var moving;
 var resizing;
 var translate;
 var acopy;
+var target;
 
 function setFillColor(fcolor) {
     fillcolor = fcolor;
@@ -392,6 +411,8 @@ window.onload = function () {
 	}
 
 function setMode(shape_to_draw) {
+    shapes[shapes.length-1].setUnselected();
+    shapeDraw();
 	mode = shape_to_draw;
 	action = "addShape";
 }
@@ -405,15 +426,15 @@ function add(x1, y1, x2, y2)
 {
     if (mode == "Line")
     {
-        var newobj = new Line(mode, x1, y1, x2, y2, outlinecolor, outlinesize, canvas);
+        var newobj = new Line(mode, x1, y1, x2, y2, outlinecolor, outlinesize);
     }
     else if (mode == "Squ")
     {
-        var newobj = new Squ(mode, x1, y1, x2, y2, outlinecolor, fillcolor, outlinesize, canvas);
+        var newobj = new Squ(mode, x1, y1, x2, y2, outlinecolor, fillcolor, outlinesize);
     }
     else if (mode == "Tri")
     {
-        var newobj = new Tri(mode, x1, y1, x2, y2, outlinecolor, fillcolor, outlinesize, canvas);
+        var newobj = new Tri(mode, x1, y1, x2, y2, outlinecolor, fillcolor, outlinesize);
     }
     newobj.setUnselected();
     shapes.push(newobj);
@@ -442,7 +463,8 @@ function canvaDown(e) {
 				//previouslySelectedShape = shape;
 
                 shapes.splice(i, 1);
-				shape.setSelected(x, y);
+				shape.setSelected();
+                shape.setMousePos(x, y);
                 shapes.push(shape);                
 				sel = true;      
                 resizing = edge;
@@ -520,23 +542,21 @@ function clearerase()
 
 function copy()
 {
-    var target;
-    if (action == 'select') {
-        target = shapes[length-1];
-        if (shapes[length-1].mode == "Line") {
-            acopy = new Line(target.mode, target.x1 + 20, target.y1 + 20, target.x2 + 20, target.y2 + 20, 
-                outlinecolor, outlinesize, canvas);
-        }
-    }
+
+
+    
+    target = shapes[shapes.length-1];
 }
 
 
 function paste()
 {
-    shapes[length-1].setUnselected();
+    shapes[shapes.length-1].setUnselected();
+    acopy = target.clone();
     acopy.setSelected();
     shapes.push(acopy);
     shapeDraw();
+    target = acopy;
 }
 
 function shapeDraw()
