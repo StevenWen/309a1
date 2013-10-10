@@ -19,6 +19,7 @@
   </style>
   <link rel="stylesheet" type="text/css" href="index.css">
   <script src="index.js"></script>
+  <script type="text/javascript" src="jscolor/jscolor.js"></script>
 </head>	
 
 <body>
@@ -27,156 +28,79 @@
     <p>Outline width:</p>
 	<table>
 		<tr>
-			<td class = "lwtd">1</td>
-			<td class = "lwtd">2</td>
-			<td class = "lwtd">3</td>
-			<td class = "lwtd">4</td>
-			<td class = "lwtd">5</td>
-			<td class = "lwtd">6</td>
-			<td class = "lwtd">7</td>
-			<td class = "lwtd">8</td>
-			<td class = "lwtd">9</td>
+			<td class = "lwtd" onclick = "setOutLineWidth(1)">1</td>
+			<td class = "lwtd" onclick = "setOutLineWidth(2)">2</td>
+			<td class = "lwtd" onclick = "setOutLineWidth(3)">3</td>
+			<td class = "lwtd" onclick = "setOutLineWidth(4)">4</td>
 		</tr>
 	</table>
 	<p>Fill colour:</p>
 	<table id = "fillcolour">
 		<tr>
-			<td class = "black"></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td class = "Black" onclick = "setFillColor('Black')"></td>
+			<td class = "Blue" onclick = "setFillColor('Blue')"></td>
+			<td class = "Brown" onclick = "setFillColor('Brown')"></td>
+			<td class = "Chocolate" onclick = "setFillColor('Chocolate')"></td>
 		</tr>
 		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td class = "Crimson" onclick = "setFillColor('Crimson')"></td>
+			<td class = "Cyan" onclick = "setFillColor('Cyan')"></td>
+			<td class = "Gold" onclick = "setFillColor('Gold')"></td>
+			<td class = "Gray" onclick = "setFillColor('Gray')"></td>
 		</tr>
 		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td class = "Green" onclick = "setFillColor('Green')"></td>
+			<td class = "GreenYellow" onclick = "setFillColor('GreenYellow')"></td>
+			<td class = "Orange" onclick = "setFillColor('Orange')"></td>
+			<td class = "Pink" onclick = "setFillColor('Pink')"></td>
 		</tr>
 		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td class = "Silver" onclick = "setFillColor('Silver')"></td>
+			<td class = "SkyBlue" onclick = "setFillColor('SkyBlue')"></td>
+			<td class = "Tan" onclick = "setFillColor('Tan')"></td>
+			<td class = "Violet" onclick = "setFillColor('Violet')"></td>
 		</tr>
 		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td class = "White" onclick = "setFillColor('White')"></td>
+			<td class = "Yellow" onclick = "setFillColor('Yellow')"></td>
+			<td class = "Wheat" onclick = "setFillColor('Wheat')"></td>
+			<td class = "Purple" onclick = "setFillColor('Purple')"></td>
 		</tr>
-		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
+		
 	</table>
 	<p>Outline colour:</p>
-	<table id = "outlinecolour">
 	<table id = "fillcolour">
 		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td class = "Black" onclick = "setOutLineColor('Black')"></td>
+			<td class = "Blue" onclick = "setOutLineColor('Blue')"></td>
+			<td class = "Brown" onclick = "setOutLineColor('Brown')"></td>
+			<td class = "Chocolate" onclick = "setOutLineColor('Chocolate')"></td>
 		</tr>
 		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td class = "Crimson" onclick = "setOutLineColor('Crimson')"></td>
+			<td class = "Cyan" onclick = "setOutLineColor('Cyan')"></td>
+			<td class = "Gold" onclick = "setOutLineColor('Gold')"></td>
+			<td class = "Gray" onclick = "setOutLineColor('Gray')"></td>
 		</tr>
 		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td class = "Green" onclick = "setOutLineColor('Green')"></td>
+			<td class = "GreenYellow" onclick = "setOutLineColor('GreenYellow')"></td>
+			<td class = "Orange" onclick = "setOutLineColor('Orange')"></td>
+			<td class = "Pink" onclick = "setOutLineColor('Pink')"></td>
 		</tr>
 		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td class = "Silver" onclick = "setOutLineColor('Silver')"></td>
+			<td class = "SkyBlue" onclick = "setOutLineColor('SkyBlue')"></td>
+			<td class = "Tan" onclick = "setOutLineColor('Tan')"></td>
+			<td class = "Violet" onclick = "setOutLineColor('Violet')"></td>
 		</tr>
 		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td class = "White" onclick = "setOutLineColor('White')"></td>
+			<td class = "Yellow" onclick = "setOutLineColor('Yellow')"></td>
+			<td class = "Wheat" onclick = "setOutLineColor('Wheat')"></td>
+			<td class = "Purple" onclick = "setOutLineColor('Purple')"></td>
 		</tr>
-		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-	</table>
+		
 	</table>
 </div>
 
@@ -189,6 +113,8 @@
     <button onclick="setMode('Squ')">Square</button>
 	<button onclick="setMode('Tri')">Triangle</button>
 	<button onclick="clearerase()">Clear All/ Erase</button>
+	<button onclick="copy()">Copy</button>
+	<button onclick="paste()">Paste</button>
  </div>
  
 

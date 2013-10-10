@@ -56,7 +56,7 @@ function Line(mode, x1, y1, x2, y2, color, outlineW, canvas) {
         if (this.isSelected())
         {
             
-            this.context.lineWidth = 6;
+            this.context.lineWidth = 9;
         }
         else
         {
@@ -139,7 +139,7 @@ function Squ(mode, x1, y1, x2, y2, color, fillC, outlineW, canvas)
         this.context.rect(this.x1, this.y1, this.side, this.side);
         if (this.isSelected())
         {
-            this.context.lineWidth = 6;
+            this.context.lineWidth = 9;
         }
         else
         {
@@ -254,7 +254,7 @@ function Tri(mode, x1, y1, x2, y2, color, fillC, outlineW, canvas)
         this.context.lineTo(this.x1, this.y1);
         if (this.isSelected())
         {
-            this.context.lineWidth = 6;
+            this.context.lineWidth = 9;
         }
         else
         {
@@ -351,8 +351,31 @@ var objcopy;
 var moving;
 var resizing;
 var translate;
+var acopy;
+
+function setFillColor(fcolor) {
+    fillcolor = fcolor;
+    if (action == "select") {
+        shapes[shapes.length-1].fill = fcolor;
+        shapeDraw();
+    }
+}
+
+function setOutLineColor(lcolor) {
+    outlinecolor = lcolor;
+    if (action == "select") {
+        shapes[shapes.length-1].color = lcolor;
+        shapeDraw();
+    }
+}
 
 
+function setOutLineWidth(lwidth) {
+    outlinesize = lwidth;
+    if (action == "select") {
+        shapes[shapes.length-1].width = lwidth;
+    }
+}
 
 window.onload = function () {
 		mode = "Line";
@@ -405,7 +428,7 @@ function canvaDown(e) {
     x = e.clientX - canvas.offsetLeft;
     y = e.clientY - canvas.offsetTop;
     if (action != "select") {
-		drawing = true;
+		drawing = true
 		add(x, y, x, y);
 		shapeDraw();
 	} else if (action == "select") {        
@@ -495,8 +518,26 @@ function clearerase()
 
 }
 
-	
+function copy()
+{
+    var target;
+    if (action == 'select') {
+        target = shapes[length-1];
+        if (shapes[length-1].mode == "Line") {
+            acopy = new Line(target.mode, target.x1 + 20, target.y1 + 20, target.x2 + 20, target.y2 + 20, 
+                outlinecolor, outlinesize, canvas);
+        }
+    }
+}
 
+
+function paste()
+{
+    shapes[length-1].setUnselected();
+    acopy.setSelected();
+    shapes.push(acopy);
+    shapeDraw();
+}
 
 function shapeDraw()
 {
