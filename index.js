@@ -411,8 +411,12 @@ window.onload = function () {
 	}
 
 function setMode(shape_to_draw) {
-    shapes[shapes.length-1].setUnselected();
-    shapeDraw();
+    if (shapes.length != 0) {
+        shapes[shapes.length-1].setUnselected();
+        shapeDraw();
+    }
+    
+    target = null;
 	mode = shape_to_draw;
 	action = "addShape";
 }
@@ -551,12 +555,15 @@ function copy()
 
 function paste()
 {
-    shapes[shapes.length-1].setUnselected();
-    acopy = target.clone();
-    acopy.setSelected();
-    shapes.push(acopy);
-    shapeDraw();
-    target = acopy;
+    if (target) {
+        shapes[shapes.length-1].setUnselected();
+        acopy = target.clone();
+        acopy.setSelected();
+        shapes.push(acopy);
+        shapeDraw();
+        target = acopy;
+    }
+    
 }
 
 function shapeDraw()
