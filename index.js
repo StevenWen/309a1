@@ -110,7 +110,7 @@ function Line(mode, x1, y1, x2, y2, color, outlineW) {
         return false;
     }
 
-
+    //clone a new object that is identical to this one except the postion
     this.clone = function () {
         return new Line(this.mode, this.x1 + 20, this.y1 + 20, this.x2 + 20, this.y2 + 20, this.color, this.outlineW);
     }
@@ -229,6 +229,7 @@ function Squ(mode, x1, y1, x2, y2, color, fillC, outlineW)
         }
     }
 
+    //clone a new object that is identical to this one except the postion
     this.clone = function () {
         return new Squ(this.mode, this.x1 + 20, this.y1 + 20, this.x2 + 20, this.y2 + 20, this.color, this.outlineW);
     }
@@ -239,7 +240,9 @@ Squ.prototype.constructor = Squ;
 
 
 
-
+/*
+*the object for a triangle
+*/
 function Tri(mode, x1, y1, x2, y2, color, fillC, outlineW)
 {
     shape.call(this, mode, x1, y1);
@@ -255,7 +258,7 @@ function Tri(mode, x1, y1, x2, y2, color, fillC, outlineW)
 
 	
 	
-	
+	//draw the trangle on canvas
     this.draw = function () {
 	
         this.context.beginPath();
@@ -279,6 +282,7 @@ function Tri(mode, x1, y1, x2, y2, color, fillC, outlineW)
         this.context.closePath();
     }
     
+    //resize the triangle
 	this.resizeit = function (x, y) {
         console.log(this.resize);
 		if (this.resize == 2) {
@@ -294,7 +298,7 @@ function Tri(mode, x1, y1, x2, y2, color, fillC, outlineW)
 
     }
     
-	
+	//move the shape to target location
 	this.move = function (x, y) {
         this.x1 += (x - this.mx);
         this.y1 += (y - this.my);
@@ -341,7 +345,8 @@ function Tri(mode, x1, y1, x2, y2, color, fillC, outlineW)
 	   }
     }
 
-this.clone = function () {
+    //clone a new object that is identical to this one except the postion
+    this.clone = function () {
         return new Tri(this.mode, this.x1 + 20, this.y1 + 20, this.x2 + 20, this.y2 + 20, this.color, this.outlineW);
     }
 
@@ -379,9 +384,11 @@ var target;
 */
 function setFillColor(fcolor) {
     fillcolor = fcolor;
+    document.getElementById("fillc").style.color = fcolor;
     if (action == "select") {
         shapes[shapes.length-1].fill = fcolor;
         shapeDraw();
+        
     }
 }
 
@@ -392,9 +399,11 @@ function setFillColor(fcolor) {
 */
 function setOutLineColor(lcolor) {
     outlinecolor = lcolor;
+    document.getElementById("linec").style.color = lcolor;
     if (action == "select") {
         shapes[shapes.length-1].color = lcolor;
         shapeDraw();
+        
     }
 }
 
@@ -405,6 +414,7 @@ function setOutLineColor(lcolor) {
 */
 function setOutLineWidth(lwidth) {
     outlinesize = lwidth;
+    document.getElementById("linew").innerHTML = "Outline Width: " + lwidth;
     if (action == "select") {
         shapes[shapes.length-1].width = lwidth;
     }
@@ -425,7 +435,9 @@ window.onload = function () {
 	
 	}
 
-	
+/*
+*set the mode of drawing to square, line or triangle
+*/	
 function setMode(shape_to_draw) {
     if (shapes.length != 0) {
         shapes[shapes.length-1].setUnselected();
@@ -437,12 +449,16 @@ function setMode(shape_to_draw) {
 	action = "addShape";
 }
 
-
+/*
+*set the action to select, drawing, moving or resizing
+*/
 function setAction(action_wanted) {
 	action = action_wanted;
 }
 
-
+/*
+*creates a new shape object, and push it to the array
+*/
 function add(x1, y1, x2, y2)
 {
     if (mode == "Line")
@@ -461,7 +477,9 @@ function add(x1, y1, x2, y2)
     shapes.push(newobj);
 }
 
-
+/*
+*when mouse is clicked down
+*/
 function canvaDown(e) {
     x = e.clientX - canvas.offsetLeft;
     y = e.clientY - canvas.offsetTop;
@@ -496,7 +514,9 @@ function canvaDown(e) {
 	}
 }
 
-
+/*
+* when mouse is released
+*/
 function canvasRelease(e)
 {
     if (drawing) {
@@ -515,7 +535,9 @@ function canvasRelease(e)
     }
 }
 
-
+/*
+*after mouse is clicked down and is moving
+*/
 function interact(e)
 {
 
@@ -566,6 +588,7 @@ function clearerase()
 */
 function copy()
 {
+    if (shapes[shapes.length-1].isSelected() && shapes.length != 0)
     target = shapes[shapes.length-1];
 }
 

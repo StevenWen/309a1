@@ -11,7 +11,7 @@ body {
     max-width: 640px;
     min-width: 400px;
     padding: 5px;
-	font-size: 12px;
+	  font-size: 12px;
     font-weight: bold;
 }
 
@@ -19,159 +19,179 @@ body {
 	display: block;
 }
 	
-	
+.Selection {
+  float:right;
+  width:250px;
+  height:768px
+}
 
    td.lwtd
 {
    text-align : center;
+   background-color: cyan;
    height : 30px;
    width : 30px;
-   border: 1px solid black;
-   background-color: cyan;
 }
 
-td
-{
-   border: 1px solid black;
-   height : 30px;
-   width : 30px;
-}
 
 
 
 canvas
 {
    border: 1px solid black;
+
 }
 
 td.Black
 {
    background-color:black; 
+   height : 30px;
+   width : 30px;
 
 }
 
 td.Blue
 {
    background-color:Blue; 
-
+   height : 30px;
+   width : 30px;
 }
 
 
 td.Brown
 {
    background-color:Brown; 
-
+   height : 30px;
+   width : 30px;
 }
 
 
 td.Chocolate
 {
    background-color:Chocolate; 
-
+   height : 30px;
+   width : 30px;
 }
 
 td.Crimson
 {
    background-color:Crimson; 
-
+   height : 30px;
+   width : 30px;
 }
 
 
 td.Cyan
 {
    background-color:Cyan; 
-
+   height : 30px;
+   width : 30px;
 }
 
 td.Gold
 {
    background-color:Gold; 
-
+   height : 30px;
+   width : 30px;
 }
 
 td.Gray
 {
    background-color:Gray; 
-
+   height : 30px;
+   width : 30px;
 }
 
 
 td.Green
 {
    background-color:Green; 
-
+   height : 30px;
+   width : 30px;
 }
 
 
 td.GreenYellow
 {
    background-color:GreenYellow; 
-
+   height : 30px;
+   width : 30px;
 }
 
 
 td.Orange
 {
    background-color:Orange; 
-
+   height : 30px;
+   width : 30px;
 }
 
 
 td.Pink
 {
    background-color:Pink; 
-
+   height : 30px;
+   width : 30px;
 }
 
 td.Silver
 {
    background-color:Silver; 
-
+   height : 30px;
+   width : 30px;
 }
 
 
 td.SkyBlue
 {
    background-color:SkyBlue; 
-
+   height : 30px;
+   width : 30px;
 }
 
 
 td.Tan
 {
    background-color:Tan; 
-
+   height : 30px;
+   width : 30px;
 }
 
 td.Violet
 {
    background-color:Violet; 
-
+   height : 30px;
+   width : 30px;
 }
 
 
 td.White
 {
    background-color:White; 
-
+   height : 30px;
+   width : 30px;
 }
 
 td.Yellow
 {
    background-color:Yellow; 
-
+   height : 30px;
+   width : 30px;
 }
 
 
 td.Wheat
 {
    background-color:Wheat; 
-
+   height : 30px;
+   width : 30px;
 }
 
 
 td.Purple
 {
    background-color:Purple; 
-
+   height : 30px;
+   width : 30px;
 }
+

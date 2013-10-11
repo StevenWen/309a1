@@ -4,20 +4,6 @@
   <meta charset="UTF-8">
   <title>Drawing Tool</title>
 
-
-
-
-  <style>
-	body {
-	  font-family: Verdana;
-	  font-size: small;
-	}
-	canvas {
-	  border: 1px solid black;
-	  padding: 20px;
-	}
-
-  </style>
   <link rel="stylesheet" type="text/css" href="index.css">
   <script src="index.js"></script>
   <script type="text/javascript" src="jscolor/jscolor.js"></script>
@@ -25,8 +11,8 @@
 
 <body>
   
-<div style="float:right;width:300px;height:768px">
-    <p>Outline width:</p>
+<div Class = "Selection">
+    <p id = "linew">Outline Width: 1</p>
 	<table>
 		<tr>
 			<td class = "lwtd" onclick = "setOutLineWidth(1)">1</td>
@@ -35,8 +21,8 @@
 			<td class = "lwtd" onclick = "setOutLineWidth(4)">4</td>
 		</tr>
 	</table>
-	<p>Fill colour:</p>
-	<table id = "fillcolour">
+	<p id = "fillc">Fill Colour:</p>
+	<table>
 		<tr>
 			<td class = "Black" onclick = "setFillColor('Black')"></td>
 			<td class = "Blue" onclick = "setFillColor('Blue')"></td>
@@ -69,8 +55,10 @@
 		</tr>
 		
 	</table>
-	<p>Outline colour:</p>
-	<table id = "fillcolour">
+	<span styl = "float: left">
+	<p id = "linec">Outline Colour:</p>
+	</span>
+	<table>
 		<tr>
 			<td class = "Black" onclick = "setOutLineColor('Black')"></td>
 			<td class = "Blue" onclick = "setOutLineColor('Blue')"></td>
@@ -105,7 +93,7 @@
 	</table>
 </div>
 
-  <canvas id="myCanvas" width="640" height="360">
+  <canvas id="myCanvas" width="600" height="450">
   </canvas>
   
  <div>
